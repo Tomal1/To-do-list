@@ -18,7 +18,6 @@ addButton.addEventListener("click", () =>{
     editBtn.classList.add("editBtn");
     editBtn.innerHTML = "Edit";
     outputCon.appendChild(editBtn);
-
 });
 
 
