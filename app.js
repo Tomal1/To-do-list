@@ -1,3 +1,2 @@
-let test = document.querySelector(".test");
+outputCon = document.querySelector("#outputContainer");
 
-test.addEventListener("click", () => console.log("js file is connected"));
