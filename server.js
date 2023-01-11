@@ -24,6 +24,7 @@ app.get("/api/data", (req,res)=>{
     })
 });
 
+
 app.post("/api/data", (req,res)=>{
     console.log(req.body); // will console the body
     
@@ -42,8 +43,32 @@ app.post("/api/data", (req,res)=>{
     })
 });
 
+//if you do a put request you will need to send all parameters inside of that body,
 
+//with patch only the specific property that you want to updated so it saves time
+app.patch("/api/data/:id", (req,res)=>{
 
+    // turning into a number
+    const ID = req.params.id * 1;
+
+    //seeing if our number matches in data1 properties
+    const toBeUpdated = data1.find(el => el.id === ID);
+    // finding out the index of data1
+    const index = data1.indexOf(toBeUpdated);
+
+    Object.assign(toBeUpdated, req.body)
+
+    data1[index] = toBeUpdated;
+    
+    fs.writeFile(`${__dirname}/data/data.json`,JSON.stringify(data1), err => {
+        res.status(200).json({
+            status: "success",
+            data:{
+                data1: toBeUpdated
+            }
+        })
+    })
+});
 
 app.listen(PORT, ()=>{
     console.log(`listening to PORT ${PORT}`)
