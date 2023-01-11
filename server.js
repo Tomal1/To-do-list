@@ -24,6 +24,24 @@ app.get("/api/data", (req,res)=>{
     })
 });
 
+app.post("/api/data", (req,res)=>{
+    console.log(req.body); // will console the body
+    
+    const newId = data1[data1.length - 1].id +1; //adds 1 to the id
+
+    const newData = Object.assign({id:newId}, req.body);
+
+    data1.push(newData);
+    fs.writeFile(`${__dirname}/data/data.json`,JSON.stringify(data1), err =>{
+        res.status(201).json({
+            status: "success",
+            data:{
+                data1: newData
+            }
+        });
+    })
+});
+
 
 
 
