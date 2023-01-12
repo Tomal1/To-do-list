@@ -21,7 +21,7 @@ app.get("/api/data", (req,res)=>{
         data: {
             data: data1
         }
-    })
+    });
 });
 
 
@@ -40,17 +40,15 @@ app.post("/api/data", (req,res)=>{
                 data1: newData
             }
         });
-    })
+    });
 });
 
 //if you do a put request you will need to send all parameters inside of that body,
 
 //with patch only the specific property that you want to updated so it saves time
 app.patch("/api/data/:id", (req,res)=>{
-
     // turning into a number
     const ID = req.params.id * 1;
-
     //seeing if our number matches in data1 properties
     const toBeUpdated = data1.find(el => el.id === ID);
     // finding out the index of data1
@@ -66,8 +64,29 @@ app.patch("/api/data/:id", (req,res)=>{
             data:{
                 data1: toBeUpdated
             }
-        })
-    })
+        });
+    });
+});
+
+
+app.delete("/api/data/:id", (req,res)=>{
+
+    const ID = req.params.id * 1;
+
+    const toBeDeleted = data1.find(el => el.id === ID);
+
+    const index = data1.indexOf(toBeDeleted);
+
+    data1.splice(index,1);
+    
+    fs.writeFile(`${__dirname}/data/data.json`,JSON.stringify(data1), err => {
+        res.status(204).json({
+            status: "success",
+            data:{
+                data1: null
+            }
+        });
+    });
 });
 
 app.listen(PORT, ()=>{
