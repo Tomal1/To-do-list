@@ -7,8 +7,8 @@ const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-//this line of code is calling the "dotenv" library
-require("dotenv").config();
+
+
 
 
 const sequelize = require("./config/connection");

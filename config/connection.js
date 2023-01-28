@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
-
+//this line of code is calling the "dotenv" library
+require("dotenv").config();
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
