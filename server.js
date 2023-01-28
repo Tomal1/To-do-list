@@ -1,3 +1,4 @@
+
 const fs = require("fs");
 
 const express = require("express");
@@ -5,6 +6,12 @@ const path = require("path");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+
+//this line of code is calling the "dotenv" library
+require("dotenv").config();
+
+
+const sequelize = require("./config/connection");
 
 app.use(express.json());// middleware to allow us to use json 
 app.use(express.urlencoded({ extended: true })); //middle where to allow us to use special characters in url
@@ -99,6 +106,6 @@ app.delete("/api/data/:id", (req,res)=>{
 
 });
 
-app.listen(PORT, ()=>{
-    console.log(`listening to PORT ${PORT}`)
-});
+sequelize.sync({ force: false }).then(()=>{
+    app.listen(PORT, () => console.log(`listening to PORT ${PORT}`))
+})
