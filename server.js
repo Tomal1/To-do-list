@@ -26,7 +26,6 @@ app.get("/api/data", (req,res)=>{
             data/*must be named the same as endpoint*/: data1, /* everything inside of data.json (our json body of contents) */
         }
     })
-    //.catch(err => res.status(500).json(err))
 });
 
 
@@ -97,7 +96,7 @@ app.delete("/api/data/:id", (req,res)=>{
             }
         });
     })
-    .catch(err => res.status(500).json(err))
+
 });
 
 app.listen(PORT, ()=>{

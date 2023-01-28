@@ -16,6 +16,26 @@ const createTodoItem = (value) => {
     deleteBtn.dataset.itemId = value.id //
     outputCon.appendChild(deleteBtn);
 
+    deleteBtn.addEventListener("click", (e)=>{
+
+        fetch("/api/data/" + e.target.dataset.itemId, {
+        
+            method: "DELETE",
+            
+        })
+        .then(data =>{
+            console.log(data)
+            if(data.status === 200){
+                console.log("success");
+            } 
+            if (data.status === 500){
+                console.log("something went wrong")
+            }
+        })
+        .catch(err => console.log("something went wrong"))
+    })
+
+
     let editBtn  =  document.createElement("button");
     editBtn.dataset.itemId = value.id; //giving edit btn an id
    
@@ -29,14 +49,32 @@ const createTodoItem = (value) => {
         let done = document.createElement("button");
         done.innerHTML = "done";
         outputCon.appendChild(done);
-        
-        fetch("/api/data/" + e.target.dataset.itemId, {
-            method: "PATCH",
-            headers: {
-                "Content-Type":"application/json"
-            },
+
+        done.addEventListener("click", ()=>{
+
+            let updateValue = {message: input.value}
+            console.log(updateValue)
+            fetch("/api/data/" + e.target.dataset.itemId, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type":"application/json"
+                },
+                body: JSON.stringify(updateValue)
+            })
+            .then(data =>  {
+                console.log(data)
+                if(data.status === 200){
+                    console.log("success");
+                } 
+                if (data.status === 500){
+                    console.log("something went wrong")
+                }
+            })
+            .catch(err => console.log("something went wrong"))
+
         })
-        // .then(() => lo)
+        
+
 
     })
     
