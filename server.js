@@ -1,3 +1,7 @@
+/*"npm install sequelize", 
+"npm install --save mysql2", 
+"npm install dotenv --save" */
+
 
 const fs = require("fs");
 
@@ -6,10 +10,6 @@ const path = require("path");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-
-
-
-
 
 const sequelize = require("./config/connection");
 
