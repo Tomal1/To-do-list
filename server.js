@@ -2,7 +2,7 @@
 "npm install --save mysql2", 
 "npm install dotenv --save" */
 
-//const fs = require("fs");
+//const fs = require("fs"); 
 const Message = require("./models/message");
 
 const express = require("express");
@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true })); //middle where to allow us to u
 //connects public folder
 app.use(express.static("./public"));
 
-// //reads fake database and store it into a variable
+// //reads fake database (data.json) and store it into a variable
 // const data1 = JSON.parse(
 //     fs.readFileSync(`${__dirname}/data/data.json`)
 //     );
@@ -84,14 +84,7 @@ app.patch("/api/data/:id", (req,res)=>{
           id: req.params.id,
         },
       })
-      .then(data =>{
-        if (!data[0]) {
-          res.status(404).json({ message: 'No user with this id!' });
-          return;
-        } else {
-          res.status(200).json(userData);
-        }
-      })
+      .then(data =>res.status(200).json(data))
       .catch(err => res.status(500).json(err))
     
     // // turning into a number because /:id is a string

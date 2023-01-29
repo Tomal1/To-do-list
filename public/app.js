@@ -3,9 +3,9 @@ let inputText = document.querySelector("#inputText");
 let addButton = document.querySelector("#addButton");
 
 const createTodoItem = (value) => {
+
     let output = document.createElement("p"); //creating a paragraph tag
     output.classList.add("outputText"); //giving paragraph a class
-    
     //use text content instead because inner htm is for elements
     output.textContent = value.message; //what we want inside the paragraph
     outputCon.appendChild(output); //where we want to add it
@@ -13,7 +13,7 @@ const createTodoItem = (value) => {
     let deleteBtn  =  document.createElement("button");
     deleteBtn.classList.add("deleteBtn");
     deleteBtn.innerHTML = "Delete";
-    deleteBtn.dataset.itemId = value.id //
+    deleteBtn.dataset.itemId = value.id // assigning an id to delete button
     outputCon.appendChild(deleteBtn);
 
     deleteBtn.addEventListener("click", (e)=>{
@@ -38,11 +38,17 @@ const createTodoItem = (value) => {
 
     let editBtn  =  document.createElement("button");
     editBtn.dataset.itemId = value.id; //giving edit btn an id
+    editBtn.classList.add("editBtn");
+    editBtn.innerHTML = "Edit";
+    outputCon.appendChild(editBtn);
    
 
-    editBtn.addEventListener("click", (e) => {
+    editBtn.addEventListener("click", (x) => {
+        x.preventDefault()
+
         let input = document.createElement("input");
         input.type = "text";
+        input.placeholder = "enter hear to update";
         input.className = "input";
         outputCon.appendChild(input);
 
@@ -50,20 +56,26 @@ const createTodoItem = (value) => {
         done.innerHTML = "done";
         outputCon.appendChild(done);
 
-        done.addEventListener("click", ()=>{
+        done.addEventListener("click", (e)=>{
+            e.preventDefault();
+
+            // input.style.visibility = visible;
+            // done.style.visibility = hidden;
 
             let updateValue = {message: input.value}
-            console.log(updateValue)
             
-            fetch("/api/data/:id", {
+            fetch("/api/data/" + x.target.dataset.itemId, {
                 method: "PATCH",
                 headers: {
                     "Content-Type":"application/json"
                 },
                 body: JSON.stringify(updateValue)
             })
+            .then(response => response.json())
             .then(data =>  {
                 console.log(data)
+
+
                 if(data.status === 200){
                     console.log("success");
                 } 
@@ -74,10 +86,6 @@ const createTodoItem = (value) => {
             .catch(err => console.log("something went wrong"))
         })
     })
-    
-    editBtn.classList.add("editBtn");
-    editBtn.innerHTML = "Edit";
-    outputCon.appendChild(editBtn);
 }
 
 addButton.addEventListener("click", () =>{
