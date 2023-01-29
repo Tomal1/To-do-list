@@ -71,11 +71,7 @@ const createTodoItem = (value) => {
                 }
             })
             .catch(err => console.log("something went wrong"))
-
         })
-        
-
-
     })
     
     editBtn.classList.add("editBtn");
@@ -88,8 +84,6 @@ addButton.addEventListener("click", () =>{
     const convertToObj = {
         message: inputText.value
     }
-
-    console.log(convertToObj)
     
     fetch("/api/data",{
         method:"POST", 
@@ -103,27 +97,26 @@ addButton.addEventListener("click", () =>{
     .then(response => response.json())
     .then(data => {
       console.log(data)
-      const items = data.data.data;
-      createTodoItem()
+        createTodoItem(data)
     })    
 });
 
 
-const name = () =>{
-    // GET method
-    fetch("/api/data", {
-        method: "GET" //is calling the get api in server.js, thats how it know which file to go inside
-    })
-    .then(response =>response.json()) //convert that data into json body
-    .then(data =>{
-        console.log(data)
-        const items = data.data.data;
-        // loop through all the data in 
-        for (let i = 0; i < items.length; i++) {
-            const dataElement = items[i];
-            createTodoItem(dataElement)
-        }
-    })
-};
-name()
+// const name = () =>{
+//     // GET method
+//     fetch("/api/data", {
+//         method: "GET" //is calling the get api in server.js, thats how it know which file to go inside
+//     })
+//     .then(response =>response.json()) //convert that data into json body
+//     .then(data =>{
+//         console.log(data)
+//         const items = data.data.data;
+//         // loop through all the data in 
+//         for (let i = 0; i < items.length; i++) {
+//             const dataElement = items[i];
+//             createTodoItem(dataElement)
+//         }
+//     })
+// };
+// name()
 

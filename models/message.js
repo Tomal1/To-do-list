@@ -8,6 +8,7 @@ Message.init(
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
+      primaryKey: true,
     },
     message: {
       type: DataTypes.STRING,
@@ -18,7 +19,8 @@ Message.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "book",
+    modelName: "message",
   }
 );
+
 module.exports = Message;
