@@ -54,7 +54,8 @@ const createTodoItem = (value) => {
 
             let updateValue = {message: input.value}
             console.log(updateValue)
-            fetch("/api/data/" + e.target.dataset.itemId, {
+            
+            fetch("/api/data/:id", {
                 method: "PATCH",
                 headers: {
                     "Content-Type":"application/json"
@@ -102,21 +103,25 @@ addButton.addEventListener("click", () =>{
 });
 
 
-// const name = () =>{
-//     // GET method
-//     fetch("/api/data", {
-//         method: "GET" //is calling the get api in server.js, thats how it know which file to go inside
-//     })
-//     .then(response =>response.json()) //convert that data into json body
-//     .then(data =>{
-//         console.log(data)
-//         const items = data.data.data;
-//         // loop through all the data in 
-//         for (let i = 0; i < items.length; i++) {
-//             const dataElement = items[i];
-//             createTodoItem(dataElement)
-//         }
-//     })
-// };
-// name()
+const name = () =>{
+    // GET method
+    fetch("/api/data", {
+        method: "GET" //is calling the get api in server.js, thats how it know which file to go inside
+    })
+    .then(response =>response.json()) //convert that data into json body
+    .then(data =>{
+        console.log(data)
+        for(let i=0; i<data.length; i++){
+            createTodoItem(data[i])
+        }
+    
+        // const items = data.data.data;
+        // // loop through all the data in 
+        // for (let i = 0; i < items.length; i++) {
+        //     const dataElement = items[i];
+        // createTodoItem(data)
+        //}
+    })
+};
+name()
 

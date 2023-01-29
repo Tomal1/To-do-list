@@ -2,7 +2,7 @@
 "npm install --save mysql2", 
 "npm install dotenv --save" */
 
-const fs = require("fs");
+//const fs = require("fs");
 const Message = require("./models/message");
 
 const express = require("express");
@@ -19,9 +19,10 @@ app.use(express.urlencoded({ extended: true })); //middle where to allow us to u
 //connects public folder
 app.use(express.static("./public"));
 
-const data1 = JSON.parse(
-    fs.readFileSync(`${__dirname}/data/data.json`)
-    );
+// //reads fake database and store it into a variable
+// const data1 = JSON.parse(
+//     fs.readFileSync(`${__dirname}/data/data.json`)
+//     );
 
 app.get("/api/data", (req,res)=>{
 
